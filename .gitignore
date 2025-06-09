@@ -1,0 +1,46 @@
+# Build results
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider files
+.idea/
+
+# Logs
+*.log
+
+# NuGet
+*.nupkg
+packages/
+
+# Configurações locais de usuário
+*.DotSettings.user
+
+# Arquivos de publish
+*.Publish.xml
+
+# Diretórios temporários
+[Tt]emp/
+[Tt]mp/
+
+# Arquivos de backup
+*.bak
+*.backup
+
+# Arquivos de configuração sensível (se usar)
+appsettings.*.json
+
+# Pacotes e dependências (para evitar subir libs desnecessárias)
+*.dll
+*.exe
+*.pdb
+
+# Outros
+_ReSharper*/
+_ReSharper.*/
