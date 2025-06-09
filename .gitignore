@@ -32,8 +32,10 @@ packages/
 # Arquivos de backup
 *.bak
 *.backup
+*.tmp
 
 # Arquivos de configuração sensível (se usar)
+appsettings.json
 appsettings.*.json
 
 # Pacotes e dependências (para evitar subir libs desnecessárias)
@@ -44,3 +46,4 @@ appsettings.*.json
 # Outros
 _ReSharper*/
 _ReSharper.*/
+
