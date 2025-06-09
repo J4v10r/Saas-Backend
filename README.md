@@ -1,6 +1,7 @@
 # Saas-Backend
+Status(Em andamento)
 📦 Catálogo Digital SaaS (Multi-Tenant)
-Plataforma white-label para revendedores criarem e gerenciarem catálogos digitais com foco em moda íntima, sexshop e eletrônicos.
+Plataforma white-label para revendedores criarem e gerenciarem catálogos digitais com foco em eletrônicos, e em produtos diversos.
 Desenvolvida com arquitetura moderna, escalável e preparada para integração com diversos frontends.
 
 🚀 Funcionalidades
