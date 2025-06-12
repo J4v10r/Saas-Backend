@@ -28,7 +28,21 @@ namespace Saas.Infrastructure.Context
         public DbSet<OrderPayment> OrderPayments { get; set; }
         public DbSet<CatalogCustomization> CatalogCustomizations { get; set; }
 
-     
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            int tenantId = _tenantProvider.GetTenantId();
+            modelBuilder.Entity<Product>().HasQueryFilter(p => p.Catalog.TenantId == tenantId);
+            modelBuilder.Entity<Catalog>().HasQueryFilter(c => c.TenantId == tenantId);
+            modelBuilder.Entity<Order>().HasQueryFilter(o => o.TenantId == tenantId);
+            modelBuilder.Entity<OrderPayment>().HasQueryFilter(op => op.TenantId == tenantId);
+            modelBuilder.Entity<CatalogCustomization>().HasQueryFilter(cc => cc.Catalog.TenantId == tenantId);
 
+            modelBuilder.Entity<Tenant>().HasQueryFilter(null);
+            modelBuilder.Entity<Admin>().HasQueryFilter(null);
+            modelBuilder.Entity<Plan>().HasQueryFilter(null);
+            modelBuilder.Entity<Template>().HasQueryFilter(null);
+        }
+  
     }
 }
