@@ -9,7 +9,7 @@ Desenvolvida com arquitetura moderna, escalável e preparada para integração c
 
 ✅ Catálogos Personalizáveis – Templates, cores, identidade visual e domínios customizáveis.
 
-✅ Pedidos & Pagamentos – Checkout com integração para PIX, cartão de crédito e pagamento fiado.
+✅ Pedidos & Pagamentos – Checkout com integração para PIX e cartão de crédito.
 
 ✅ Gestão de Assinaturas – Suporte a planos mensais e anuais para revendedores.
 
