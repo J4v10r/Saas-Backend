@@ -10,9 +10,10 @@ using Saas.Services.TenantServices;
 
 namespace Saas.Controllers.TenantController
 {
-    
+
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TenantController : ControllerBase
     {
         private readonly ITenantService _tenantService;
@@ -26,7 +27,7 @@ namespace Saas.Controllers.TenantController
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<bool>> Post([FromBody]TenantCreatDto tenantCreatDto)
+        public async Task<ActionResult<bool>> Post([FromBody] TenantCreatDto tenantCreatDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -77,7 +78,8 @@ namespace Saas.Controllers.TenantController
             try
             {
                 var result = await _tenantService.GetTenant(id);
-                if (result == null) {
+                if (result == null)
+                {
                     return NotFound($"Vendedor com ID {id} não encontrado.");
                 }
                 return Ok(new
@@ -97,15 +99,17 @@ namespace Saas.Controllers.TenantController
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Delete(int id){
+        public async Task<ActionResult> Delete(int id)
+        {
             try
-            {   
+            {
                 var result = await _tenantService.RemoveTenantAsync(id);
                 _logger.LogInformation($"Vendedor {id} removido com sucesso.");
                 return Ok(result);
             }
-            catch (Exception ex){
-                _logger.LogError(ex,$"Erro ao remover Vendedor {id}");
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Erro ao remover Vendedor {id}");
                 throw new Exception("Ocorreu um Erro ao remover o Vendedor");
             }
 

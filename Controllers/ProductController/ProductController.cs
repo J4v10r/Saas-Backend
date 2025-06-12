@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Dto.ProductDto;
 using Saas.Services.ProductServices;
@@ -7,20 +8,24 @@ namespace Saas.Controllers.ProductController
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase{
+    [Authorize]
+    public class ProductController : ControllerBase
+    {
 
         private readonly IProductService _productService;
         private readonly ILogger<ProductController> _logger;
-    public ProductController(IProductService productService, ILogger<ProductController>logger){
+        public ProductController(IProductService productService, ILogger<ProductController> logger)
+        {
             _productService = productService;
             _logger = logger;
-    }
+        }
 
-       [HttpPost]
-       [ProducesResponseType(StatusCodes.Status201Created)]
-       [ProducesResponseType(StatusCodes.Status400BadRequest)]
-       [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult> Post([FromBody]ProductCreateDto productCreateDto){
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Post([FromBody] ProductCreateDto productCreateDto)
+        {
             try
             {
                 if (!ModelState.IsValid)
@@ -30,7 +35,8 @@ namespace Saas.Controllers.ProductController
                 await _productService.AddProductAsync(productCreateDto);
                 return StatusCode(StatusCodes.Status201Created);
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 _logger.LogError(ex, "Erro ao adicionar Produto.");
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro interno ao adicionar o produto.");
             }
@@ -40,13 +46,15 @@ namespace Saas.Controllers.ProductController
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<ProductResponseDto>>> Get(){
+        public async Task<ActionResult<IEnumerable<ProductResponseDto>>> Get()
+        {
             try
             {
                 var products = await _productService.GetAllProductsAsync();
                 return Ok(products);
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 _logger.LogError($"{ex.Message},Erro ao retornar a lista de produtos.");
                 return BadRequest();
             }
@@ -57,16 +65,18 @@ namespace Saas.Controllers.ProductController
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public async Task<ActionResult<ProductResponseDto>> Get([FromQuery] decimal price){
+        public async Task<ActionResult<ProductResponseDto>> Get([FromQuery] decimal price)
+        {
             try
             {
-               var products = await _productService.GetAllProductsByPriceAsync(price);
-               return Ok(products);
+                var products = await _productService.GetAllProductsByPriceAsync(price);
+                return Ok(products);
             }
 
-            catch (Exception ex){
-                _logger.LogError(ex,"Erro ao buscar produto pelo preço.");
-                throw;  
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao buscar produto pelo preço.");
+                throw;
             }
         }
 
@@ -74,7 +84,8 @@ namespace Saas.Controllers.ProductController
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ProductResponseDto>> Get(int id) {
+        public async Task<ActionResult<ProductResponseDto>> Get(int id)
+        {
             try
             {
                 var product = await _productService.GetProductByIdAsync(id);
