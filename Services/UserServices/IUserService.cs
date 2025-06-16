@@ -9,7 +9,7 @@ namespace Saas.Services.UserServices
         Task<bool> UpdateUserAsync(int id, UserCreateDto user);
         Task<bool> DeleteUserAsync(int id);
         Task<UserResponseDto?> GetUserByCpfAsync(string cpf);
-        Task<UserResponseDto?> GetUserByEmailAsync(string email);
+        Task<User?> GetUserByEmailAsync(string email);
         Task<IEnumerable<UserResponseDto>> GetUsersByCatalogAsync(int catalogId);
         Task<int> GetUsersCountByCatalogAsync(int catalogId);
         Task<IEnumerable<UserResponseDto>> GetAllUsersInCatalogAsync(int catalogId);

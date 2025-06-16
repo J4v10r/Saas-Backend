@@ -4,6 +4,6 @@ namespace Saas.Services.TenantServices
 {
     public interface ITenantAuthService
     {
-        Task<TenantAuthResponseDto> Authenticate(TenantLoginDto model);
+        Task<string?> Authenticate(TenantLoginDto tenantLoginDto);
     }
 }

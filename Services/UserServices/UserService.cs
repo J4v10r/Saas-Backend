@@ -102,24 +102,26 @@ namespace Saas.Services.UserServices
           
         }
 
-        public async Task<UserResponseDto?> GetUserByEmailAsync(string email)
+        public async Task<User?> GetUserByEmailAsync(string email)
         {
-            if (!string.IsNullOrEmpty(email)){
+            if (string.IsNullOrEmpty(email))
+            {
                 _logger.LogWarning("Email nulo ou vazio ");
                 throw new InvalidOperationException("Email nulo ou vazio");
             }
-            try{
-                var em = await _userRepository.GetUserByEmailAsync(email);
-                var result = _mapper.Map<UserResponseDto>(email);
+
+            try
+            {
+                var user = await _userRepository.GetUserByEmailAsync(email);
                 _logger.LogInformation($"Usuário retornado pelo Email {email}");
-                return result;
+                return user;
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 _logger.LogError(ex, $"Erro inesperado ao retornar usuário pelo Email {email}");
                 throw;
             }
         }
-
         public async Task<IEnumerable<UserResponseDto>> GetUsersByCatalogAsync(int catalogId)
         {
             if (catalogId <= 0)
